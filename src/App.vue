@@ -1,22 +1,21 @@
 <script setup lang="ts">
 
 import Clocker from "./service/Clocker.ts";
+import {ref} from "vue";
+import ClockDisplay from "./components/ClockDisplay.vue";
 
-let clocker = new Clocker()
-let count = 0
+let clocker = ref(new Clocker())
 
 function clock() {
-  clocker.clock()
-  count++
+  clocker.value.clock()
 }
 
 </script>
 
 <template>
-  <h1>Hello world !</h1>
+  <h1>Suloséant</h1>
   <Button @click="clock">Badger</Button>
-  <p>{{ clocker.clockEntries }}</p>
-  <p>{{count}}</p>
+  <ClockDisplay :clocker="clocker"/>
 </template>
 
 <style scoped>
