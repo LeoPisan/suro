@@ -5,14 +5,6 @@ export default class Clocker {
         this._clocksEntries.push(date)
     }
 
-    get clockEntries(): Date[] {
-        return this._clocksEntries
-    }
-
-    get lastEntry(): Date {
-        return this._clocksEntries[this._clocksEntries.length - 1]
-    }
-
     /**
      * Get the entries for a given day
      *
@@ -20,12 +12,24 @@ export default class Clocker {
      */
     getDayEntries(day: Date): Date[] {
         let dayEntries = []
-        for (const entry of this._clocksEntries) {
-            if (day.getDay() === entry.getDay()) {
-                dayEntries.push(day)
+        for (let entry of this._clocksEntries) {
+            if (day.getDate() === entry.getDate()
+                && day.getMonth() === entry.getMonth()
+                && day.getFullYear() === entry.getFullYear()) {
+                dayEntries.push(entry)
             }
         }
+        console.log(dayEntries)
+        console.log(this._clocksEntries)
         return dayEntries
+    }
+
+    get clockEntries(): Date[] {
+        return this._clocksEntries
+    }
+
+    get lastEntry(): Date {
+        return this._clocksEntries[this._clocksEntries.length - 1]
     }
 
     /**
@@ -37,9 +41,9 @@ export default class Clocker {
 
     get todayClockedHours() {
         let count = 0
-        for (let i = 0; i < this._clocksEntries.length; i+=2) {
+        for (let i = 0; i < this._clocksEntries.length; i += 2) {
             if (i < (this._clocksEntries.length - 1)) {
-                count += (this._clocksEntries[i+1].getTime() - this._clocksEntries[i].getTime())
+                count += (this._clocksEntries[i + 1].getTime() - this._clocksEntries[i].getTime())
             }
         }
         return new Date(count)
