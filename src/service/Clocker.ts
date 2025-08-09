@@ -1,8 +1,14 @@
 export default class Clocker {
     _clocksEntries: Date[] = []
+    readonly _dataSaver: (data: Date[]) => void;
+
+    constructor(dataSaver: (data: Date[]) => void) {
+        this._dataSaver = dataSaver;
+    }
 
     clock(date: Date = new Date()): void {
         this._clocksEntries.push(date)
+        this._dataSaver(this._clocksEntries)
     }
 
     /**
@@ -47,5 +53,16 @@ export default class Clocker {
             }
         }
         return new Date(count)
+    }
+
+    /**
+     * Set the clock entries, typically to load them at startup
+     *
+     * @param value Entries to be loaded
+     */
+    set clockEntries(value: Date[] | null) {
+        if (value != null) {
+            this._clocksEntries = value
+        }
     }
 }
