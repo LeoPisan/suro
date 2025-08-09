@@ -14,7 +14,8 @@ export function storeDatesInCache(dates: Date[]): void {
 export function getCachedDates(): Date[] | null {
     const cachedDatesString = localStorage.getItem('cachedDates');
     if (cachedDatesString) {
-        return JSON.parse(cachedDatesString);
+        const cachedDate = JSON.parse(cachedDatesString);
+        return cachedDate.map((date: string) => new Date(date));
     }
     return null;
 }

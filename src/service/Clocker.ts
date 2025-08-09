@@ -17,7 +17,7 @@ export default class Clocker {
      * @param day A date pointing to the day searched
      */
     getDayEntries(day: Date): Date[] {
-        let dayEntries = []
+        let dayEntries: Date[] = []
         for (let entry of this._clocksEntries) {
             if (day.getDate() === entry.getDate()
                 && day.getMonth() === entry.getMonth()
@@ -25,8 +25,6 @@ export default class Clocker {
                 dayEntries.push(entry)
             }
         }
-        console.log(dayEntries)
-        console.log(this._clocksEntries)
         return dayEntries
     }
 
