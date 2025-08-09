@@ -4,10 +4,11 @@ import Clocker from "./service/Clocker.ts";
 import {ref} from "vue";
 import ClockDisplay from "./components/ClockDisplay.vue";
 
-let clocker = ref(new Clocker())
+let clocker = new Clocker()
+let clockerRef = ref(clocker)
 
 function clock() {
-  clocker.value.clock()
+  clockerRef.value.clock()
 }
 
 </script>
@@ -15,7 +16,7 @@ function clock() {
 <template>
   <h1>Suloséant</h1>
   <Button @click="clock">Badger</Button>
-  <ClockDisplay :clocker="clocker"/>
+  <ClockDisplay :clockerVal="clockerRef"/>
 </template>
 
 <style scoped>
