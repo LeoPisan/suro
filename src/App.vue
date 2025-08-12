@@ -5,6 +5,7 @@ import {ref} from "vue";
 import ClockDisplay from "./components/ClockDisplay.vue";
 import {getCachedDates, storeDatesInCache} from "./service/data-storage/dates-cache.ts";
 
+// Init clocker and data
 let clocker = new Clocker(storeDatesInCache)
 const cachedDates = getCachedDates()
 if (cachedDates != null) {

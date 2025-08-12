@@ -17,8 +17,8 @@ function displayedHours() {
 
 <template>
   <p>Dernière entrée : {{ clockerVal?.lastEntry.toLocaleTimeString() }}</p>
-  <p>{{ clockerVal?.todayEntries }}</p>
-  <p>{{ displayedHours() }}h {{ clockerVal?.todayClockedHours.getMinutes() }}mn</p>
+  <p>Badgeages d'aujourd'hui : {{ clockerVal?.todayEntries }}</p>
+  <p>Heures badgées aujourd'hui : {{ displayedHours() }}h {{ clockerVal?.todayClockedHours.getMinutes() }}mn</p>
 </template>
 
 <style scoped>
