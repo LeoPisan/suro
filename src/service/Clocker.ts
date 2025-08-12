@@ -45,9 +45,9 @@ export default class Clocker {
 
     get todayClockedHours() {
         let count = 0
-        for (let i = 0; i < this._clocksEntries.length; i += 2) {
-            if (i < (this._clocksEntries.length - 1)) {
-                count += (this._clocksEntries[i + 1].getTime() - this._clocksEntries[i].getTime())
+        for (let i = 0; i < this.todayEntries.length; i += 2) {
+            if (i < (this.todayEntries.length - 1)) {
+                count += (this.todayEntries[i + 1].getTime() - this.todayEntries[i].getTime())
             }
         }
         return new Date(count)
