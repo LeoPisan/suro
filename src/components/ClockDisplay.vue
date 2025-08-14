@@ -6,9 +6,9 @@ const props = defineProps({
   clockerVal: Clocker
 })
 
-function displayedHours() {
-  if (props.clockerVal != undefined) {
-    return props.clockerVal?.todayClockedHours.getHours() - 1
+function displayedHours(time: Date | undefined) {
+  if (time != undefined) {
+    return time.getHours() - 1
   }
   return undefined
 }
@@ -18,7 +18,14 @@ function displayedHours() {
 <template>
   <p>Dernière entrée : {{ clockerVal?.lastEntry.toLocaleTimeString() }}</p>
   <p>Badgeages d'aujourd'hui : {{ clockerVal?.todayEntries }}</p>
-  <p>Heures badgées aujourd'hui : {{ displayedHours() }}h {{ clockerVal?.todayClockedHours.getMinutes() }}mn</p>
+  <p>
+    Temps badgé aujourd'hui : {{ displayedHours(clockerVal?.todayClockedHours) }}h
+    {{ clockerVal?.todayClockedHours.getMinutes() }}mn
+  </p>
+  <p>
+    Temps badgé cette semaine : {{ displayedHours(clockerVal?.weekClockedTime) }}h
+    {{ clockerVal?.weekClockedTime.getMinutes() }}mn
+  </p>
 </template>
 
 <style scoped>

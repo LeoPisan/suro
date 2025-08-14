@@ -43,14 +43,11 @@ export default class Clocker {
         return this.getDayEntries(new Date())
     }
 
-    get todayClockedHours() {
-        let count = 0
-        for (let i = 0; i < this.todayEntries.length; i += 2) {
-            if (i < (this.todayEntries.length - 1)) {
-                count += (this.todayEntries[i + 1].getTime() - this.todayEntries[i].getTime())
-            }
-        }
-        return new Date(count)
+    /**
+     * Get the time clocked during the current day (local time)
+     */
+    get todayClockedHours(): Date {
+        return this.dayClockedHours(new Date())
     }
 
     /**
@@ -62,5 +59,48 @@ export default class Clocker {
         if (value != null) {
             this._clocksEntries = value
         }
+    }
+
+    get weekEntries(): Date[] {
+        let weekEntries: Date[] = []
+        for (let entry of this._clocksEntries) {
+            if (entry > this.lastMonday) {
+                weekEntries.push(entry)
+            }
+        }
+        return weekEntries
+    }
+
+    /**
+     * Find the date for last monday
+     */
+    get lastMonday(): Date {
+        const today = new Date()
+        // Day of the month - day of the week
+        let lastMonday = new Date()
+        const dateDiff: number = today.getDate() - today.getDay()
+        lastMonday.setDate(dateDiff)
+        return lastMonday
+    }
+
+    get weekClockedTime(): Date {
+        let count = 0
+        const today = new Date()
+        const daysSinceLastMonday = today.getDay() - this.lastMonday.getDay()
+        for (let weekDay = 0; weekDay < daysSinceLastMonday; weekDay++) {
+            count += this.dayClockedHours(new Date(new Date().setDate(today.getDate() - weekDay))).getTime()
+        }
+        return new Date(count)
+    }
+
+    dayClockedHours(day: Date): Date {
+        const dayEntries = this.getDayEntries(day)
+        let count = 0
+        for (let i = 0; i < dayEntries.length; i += 2) {
+            if (i < (dayEntries.length - 1)) {
+                count += (dayEntries[i + 1].getTime() - dayEntries[i].getTime())
+            }
+        }
+        return new Date(count)
     }
 }
